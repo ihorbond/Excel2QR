@@ -34,7 +34,8 @@
             // 
             // SelectFileBtn
             // 
-            this.SelectFileBtn.Location = new System.Drawing.Point(281, 82);
+            this.SelectFileBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.SelectFileBtn.Location = new System.Drawing.Point(38, 46);
             this.SelectFileBtn.Name = "SelectFileBtn";
             this.SelectFileBtn.Size = new System.Drawing.Size(117, 23);
             this.SelectFileBtn.TabIndex = 0;
@@ -45,9 +46,10 @@
             // FileNameLbl
             // 
             this.FileNameLbl.AutoSize = true;
-            this.FileNameLbl.Location = new System.Drawing.Point(448, 82);
+            this.FileNameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.FileNameLbl.Location = new System.Drawing.Point(35, 19);
             this.FileNameLbl.Name = "FileNameLbl";
-            this.FileNameLbl.Size = new System.Drawing.Size(85, 13);
+            this.FileNameLbl.Size = new System.Drawing.Size(111, 17);
             this.FileNameLbl.TabIndex = 1;
             this.FileNameLbl.Text = "No File Selected";
             // 
@@ -55,7 +57,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(290, 270);
             this.Controls.Add(this.FileNameLbl);
             this.Controls.Add(this.SelectFileBtn);
             this.Name = "Form1";
