@@ -1,8 +1,11 @@
 ﻿using OfficeOpenXml;
 using QRCoder;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -42,6 +45,14 @@ namespace CSV2QR
             }
         }
 
+        private void RadioButtonImageFormat_Click(object sender, EventArgs e)
+        {
+            qrCodeImageFormatGroupBox.Controls
+                .Cast<RadioButton>()
+                .ToList()
+                .ForEach(c => c.Checked = c == sender as RadioButton);
+        }
+
         private void ParseFile()
         {
             try
@@ -58,15 +69,16 @@ namespace CSV2QR
                             Directory.Delete(qrDirPath, true);
                         
                         Directory.CreateDirectory(qrDirPath);
+                        ImageFormat format = GetImageFormat();
 
                         int i = 1;
                         while (firstSheet.Cells[i, 1].Text.ToString().Trim() != "")
                         {
                             string textToEncode = firstSheet.Cells[i, 1].Text;
                             Bitmap img = GenerateQRCode(textToEncode);
-                            string fileName = "Row " + i + ".jpeg";
+                            string fileName = $"Row {i}.{format.ToString().ToUpper()}";
                             string fullFileName = Path.Combine(qrDirPath, fileName);
-                            SaveImage(img, fullFileName);
+                            SaveImage(img, format, fullFileName);
                             i++;
                         }
                         MessageBox.Show("Success");
@@ -101,13 +113,37 @@ namespace CSV2QR
         }
 
         /// <summary>
+        /// Get QR image format
+        /// </summary>
+        /// <returns></returns>
+        private ImageFormat GetImageFormat()
+        {
+            ImageFormat format;
+            IEnumerable<RadioButton> controls = qrCodeImageFormatGroupBox.Controls.Cast<RadioButton>();
+            RadioButton checkedControl = controls.First(c => c.Checked);
+            switch (checkedControl.Text)
+            {
+                case "JPEG":
+                    format = ImageFormat.Jpeg;
+                    break;
+                case "PNG":
+                    format = ImageFormat.Png;
+                    break;
+                default:
+                    format = ImageFormat.Jpeg;
+                    break;
+            }
+            return format;
+        }
+
+        /// <summary>
         /// Save image to specified location
         /// </summary>
         /// <param name="img"></param>
         /// <param name="fullFileName"></param>
-        private void SaveImage(Bitmap img, string fullFileName)
+        private void SaveImage(Bitmap img, ImageFormat format, string fullFileName)
         {
-            img.Save(fullFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+            img.Save(fullFileName, format);
             img.Dispose();
         }
 
