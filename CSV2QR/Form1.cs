@@ -16,10 +16,11 @@ namespace CSV2QR
     {
         private const string _noFileSelectedMsg = "No File Selected";
         private OpenFileDialog _openFileDialog;
+
         public Form1()
         {
             InitializeComponent();
-            FileNameLbl.Text = _noFileSelectedMsg;
+            progressBar1.Minimum = progressBar1.Value = 0;
         }
 
         private async void SelectFileBtn_Click(object sender, EventArgs e)
@@ -36,13 +37,13 @@ namespace CSV2QR
             if (result == DialogResult.OK)
             {
                 FileNameLbl.Text = _openFileDialog.SafeFileName;
+                SelectFileBtn.Enabled = false;
                 await Task.Factory.StartNew(() => ParseFile());
+                ProgressLbl.Text = "Progress";
+                SelectFileBtn.Enabled = true;
             }
 
-            if(result == DialogResult.Cancel)
-            {
-                FileNameLbl.Text = _noFileSelectedMsg;
-            }
+            FileNameLbl.Text = _noFileSelectedMsg;
         }
 
         private void RadioButtonImageFormat_Click(object sender, EventArgs e)
@@ -57,45 +58,60 @@ namespace CSV2QR
         {
             try
             {
-                using (var package = new ExcelPackage(_openFileDialog.OpenFile()))
-                {
-                    //0 for .Net Core, 1 for .Net
-                    var firstSheet = package.Workbook.Worksheets[1];
-                    if(firstSheet.Cells != null)
-                    {
-                        string excelFileDirPath = Path.GetDirectoryName(_openFileDialog.FileName);
-                        string qrDirPath = Path.Combine(excelFileDirPath, "QR Codes");
-                        if (Directory.Exists(qrDirPath))
-                            Directory.Delete(qrDirPath, true);
-                        
-                        Directory.CreateDirectory(qrDirPath);
-                        ImageFormat format = GetImageFormat();
+                ExcelPackage package = new ExcelPackage(_openFileDialog.OpenFile());
 
-                        int i = 1;
-                        while (firstSheet.Cells[i, 1].Text.ToString().Trim() != "")
-                        {
-                            string textToEncode = firstSheet.Cells[i, 1].Text;
-                            Bitmap img = GenerateQRCode(textToEncode);
-                            string fileName = $"Row {i}.{format.ToString().ToUpper()}";
-                            string fullFileName = Path.Combine(qrDirPath, fileName);
-                            SaveImage(img, format, fullFileName);
-                            i++;
-                        }
-                        MessageBox.Show("Success");
+                //0 for .Net Core, 1 for .Net
+                int sheetIndex = 1;
+                ExcelWorksheet firstSheet = package.Workbook.Worksheets[sheetIndex];
+                if(firstSheet != null && firstSheet.Cells != null)
+                {
+                    string excelFileDirPath = Path.GetDirectoryName(_openFileDialog.FileName);
+                    string qrDirPath = Path.Combine(excelFileDirPath, "QR Codes");
+                    if (Directory.Exists(qrDirPath))
+                        Directory.Delete(qrDirPath, true);
+                        
+                    Directory.CreateDirectory(qrDirPath);
+                    ImageFormat format = GetImageFormat();
+
+                    int i = 1;
+                    var data = new List<string>();
+                    while(firstSheet.Cells[i, 1].Text.ToString().Trim() != "")
+                    {
+                        data.Add(firstSheet.Cells[i, 1].Text);
+                        i++;
                     }
+
+                    progressBar1.Invoke(new Action(() => progressBar1.Maximum = data.Count));
+
+                    for(int index = 0; index < data.Count; index++)
+                    {
+                        string textToEncode = data[index];
+                        Bitmap img = GenerateQRCode(textToEncode);
+                        string fileName = $"Row {index}.{format.ToString().ToUpper()}";
+                        string fullFileName = Path.Combine(qrDirPath, fileName);
+                        SaveImage(img, format, fullFileName);
+                        progressBar1.Invoke(new Action(() => progressBar1.PerformStep()));
+                        ProgressLbl.Invoke(new Action(() => ProgressLbl.Text = $"Processing: {index + 1}/{data.Count}"));
+                    }
+
+                    MessageBox.Show("QR codes created successfully in the same folder of the Excel file", "Success");
                 }
+
+                firstSheet.Dispose();
+                package.Workbook.Dispose();
+                package.Dispose();
             }
             catch (SecurityException ex)
             {
-                MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n");
+                MessageBox.Show($"Security error.\nError message: {ex.Message}\n", "Error");
             }
             catch (IOException ex)
             {
-                MessageBox.Show($"Can't open file.\n\nError message: {ex.Message}\n\n");
+                MessageBox.Show($"Can't open file.\nError message: {ex.Message}\n", "Error");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Unknown error.\nError message: {ex.Message}\n", "Error");
             }
         }
 
@@ -147,5 +163,9 @@ namespace CSV2QR
             img.Dispose();
         }
 
+        private void codeSpaceHypeLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://codespaceinc.co/");
+        }
     }
 }
