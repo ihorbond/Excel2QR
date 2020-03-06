@@ -16,11 +16,41 @@ namespace CSV2QR
     {
         private const string _noFileSelectedMsg = "No File Selected";
         private OpenFileDialog _openFileDialog;
+        private readonly Dictionary<int, string> excelCols = new Dictionary<int, string>
+        {
+            {0, "A" },
+            {1, "B" },
+            {2, "C" },
+            {3, "D" },
+            {4, "E" },
+            {5, "F" },
+            {6, "G" },
+            {7, "H" },
+            {8, "I" },
+            {9, "J" },
+            {10, "K" },
+            {11, "L" },
+            {12, "M" },
+            {13, "N" },
+            {14, "O" },
+            {15, "P" },
+            {16, "Q" },
+            {17, "R" },
+            {18, "S" },
+            {19, "T" },
+            {20, "U" },
+            {21, "V" },
+            {22, "W" },
+            {23, "X" },
+            {24, "Y" },
+            {25, "Z" }
+        };
 
         public Form1()
         {
             InitializeComponent();
             progressBar1.Minimum = progressBar1.Value = 0;
+            ListOfExcelColumns.SelectedIndex = 0;
         }
 
         private async void SelectFileBtn_Click(object sender, EventArgs e)
@@ -38,9 +68,15 @@ namespace CSV2QR
             {
                 FileNameLbl.Text = _openFileDialog.SafeFileName;
                 SelectFileBtn.Enabled = false;
-                await Task.Factory.StartNew(() => ParseFile());
+                ListOfExcelColumns.Enabled = false;
+
+                //indexes are zero based but columns are not so add 1
+                int colNum = ListOfExcelColumns.SelectedIndex + 1;
+                await Task.Factory.StartNew(() => ParseFile(colNum));
+
                 ProgressLbl.Text = "Progress";
                 SelectFileBtn.Enabled = true;
+                ListOfExcelColumns.Enabled = true;
             }
 
             FileNameLbl.Text = _noFileSelectedMsg;
@@ -54,14 +90,13 @@ namespace CSV2QR
                 .ForEach(c => c.Checked = c == sender as RadioButton);
         }
 
-        private void ParseFile()
+        private void ParseFile(int colNum)
         {
             try
             {
                 ExcelPackage package = new ExcelPackage(_openFileDialog.OpenFile());
 
-                //0 for .Net Core, 1 for .Net
-                int sheetIndex = 1;
+                int sheetIndex = 1; //0 for .Net Core, 1 for .Net
                 ExcelWorksheet firstSheet = package.Workbook.Worksheets[sheetIndex];
                 if(firstSheet != null && firstSheet.Cells != null)
                 {
@@ -75,7 +110,9 @@ namespace CSV2QR
 
                     int i = 1;
                     var data = new List<string>();
-                    while(firstSheet.Cells[i, 1].Text.ToString().Trim() != "")
+
+                
+                    while(firstSheet.Cells[i, colNum].Text.ToString().Trim() != "")
                     {
                         data.Add(firstSheet.Cells[i, 1].Text);
                         i++;
@@ -87,14 +124,14 @@ namespace CSV2QR
                     {
                         string textToEncode = data[index];
                         Bitmap img = GenerateQRCode(textToEncode);
-                        string fileName = $"Row {index}.{format.ToString().ToUpper()}";
+                        string fileName = $"Row {index + 1}.{format.ToString().ToUpper()}";
                         string fullFileName = Path.Combine(qrDirPath, fileName);
                         SaveImage(img, format, fullFileName);
                         progressBar1.Invoke(new Action(() => progressBar1.PerformStep()));
                         ProgressLbl.Invoke(new Action(() => ProgressLbl.Text = $"Processing: {index + 1}/{data.Count}"));
                     }
 
-                    MessageBox.Show("QR codes created successfully in the same folder of the Excel file", "Success");
+                    MessageBox.Show("QR codes created successfully in the same folder as the selected Excel file", "Success");
                 }
 
                 firstSheet.Dispose();
@@ -107,7 +144,7 @@ namespace CSV2QR
             }
             catch (IOException ex)
             {
-                MessageBox.Show($"Can't open file.\nError message: {ex.Message}\n", "Error");
+                MessageBox.Show($"Can't open/save files.\nError message: {ex.Message}\n", "Error");
             }
             catch (Exception ex)
             {
@@ -167,5 +204,6 @@ namespace CSV2QR
         {
             System.Diagnostics.Process.Start("https://codespaceinc.co/");
         }
+
     }
 }

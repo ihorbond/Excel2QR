@@ -36,13 +36,15 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.ProgressLbl = new System.Windows.Forms.Label();
             this.codeSpaceHypeLink = new System.Windows.Forms.LinkLabel();
+            this.ListOfExcelColumns = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.qrCodeImageFormatGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // SelectFileBtn
             // 
             this.SelectFileBtn.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SelectFileBtn.Location = new System.Drawing.Point(12, 172);
+            this.SelectFileBtn.Location = new System.Drawing.Point(10, 204);
             this.SelectFileBtn.Name = "SelectFileBtn";
             this.SelectFileBtn.Size = new System.Drawing.Size(200, 25);
             this.SelectFileBtn.TabIndex = 0;
@@ -54,7 +56,7 @@
             // 
             this.FileNameLbl.AutoSize = true;
             this.FileNameLbl.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FileNameLbl.Location = new System.Drawing.Point(9, 151);
+            this.FileNameLbl.Location = new System.Drawing.Point(7, 183);
             this.FileNameLbl.Name = "FileNameLbl";
             this.FileNameLbl.Size = new System.Drawing.Size(109, 18);
             this.FileNameLbl.TabIndex = 1;
@@ -65,7 +67,7 @@
             this.radioButtonJpeg.AutoSize = true;
             this.radioButtonJpeg.Checked = true;
             this.radioButtonJpeg.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonJpeg.Location = new System.Drawing.Point(6, 20);
+            this.radioButtonJpeg.Location = new System.Drawing.Point(12, 20);
             this.radioButtonJpeg.Name = "radioButtonJpeg";
             this.radioButtonJpeg.Size = new System.Drawing.Size(58, 23);
             this.radioButtonJpeg.TabIndex = 2;
@@ -77,7 +79,7 @@
             // radioButtonPng
             // 
             this.radioButtonPng.AutoSize = true;
-            this.radioButtonPng.Location = new System.Drawing.Point(6, 45);
+            this.radioButtonPng.Location = new System.Drawing.Point(76, 20);
             this.radioButtonPng.Name = "radioButtonPng";
             this.radioButtonPng.Size = new System.Drawing.Size(55, 23);
             this.radioButtonPng.TabIndex = 3;
@@ -93,14 +95,14 @@
             this.qrCodeImageFormatGroupBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.qrCodeImageFormatGroupBox.Location = new System.Drawing.Point(12, 12);
             this.qrCodeImageFormatGroupBox.Name = "qrCodeImageFormatGroupBox";
-            this.qrCodeImageFormatGroupBox.Size = new System.Drawing.Size(200, 76);
+            this.qrCodeImageFormatGroupBox.Size = new System.Drawing.Size(200, 50);
             this.qrCodeImageFormatGroupBox.TabIndex = 4;
             this.qrCodeImageFormatGroupBox.TabStop = false;
-            this.qrCodeImageFormatGroupBox.Text = "QR Code Image Format";
+            this.qrCodeImageFormatGroupBox.Text = "QR code image format";
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 113);
+            this.progressBar1.Location = new System.Drawing.Point(10, 145);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(200, 25);
             this.progressBar1.Step = 1;
@@ -111,7 +113,7 @@
             this.ProgressLbl.AutoSize = true;
             this.ProgressLbl.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.ProgressLbl.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProgressLbl.Location = new System.Drawing.Point(11, 91);
+            this.ProgressLbl.Location = new System.Drawing.Point(9, 123);
             this.ProgressLbl.Name = "ProgressLbl";
             this.ProgressLbl.Size = new System.Drawing.Size(61, 18);
             this.ProgressLbl.TabIndex = 6;
@@ -122,7 +124,7 @@
             this.codeSpaceHypeLink.AutoSize = true;
             this.codeSpaceHypeLink.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codeSpaceHypeLink.LinkColor = System.Drawing.Color.Silver;
-            this.codeSpaceHypeLink.Location = new System.Drawing.Point(11, 203);
+            this.codeSpaceHypeLink.Location = new System.Drawing.Point(9, 235);
             this.codeSpaceHypeLink.Name = "codeSpaceHypeLink";
             this.codeSpaceHypeLink.Size = new System.Drawing.Size(165, 14);
             this.codeSpaceHypeLink.TabIndex = 7;
@@ -130,12 +132,60 @@
             this.codeSpaceHypeLink.Text = "Developed by Code Space Inc";
             this.codeSpaceHypeLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.codeSpaceHypeLink_LinkClicked);
             // 
+            // ListOfExcelColumns
+            // 
+            this.ListOfExcelColumns.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ListOfExcelColumns.FormattingEnabled = true;
+            this.ListOfExcelColumns.Items.AddRange(new object[] {
+            "A",
+            "B",
+            "C\t",
+            "D",
+            "E\t",
+            "F\t",
+            "G\t",
+            "H\t",
+            "I\t",
+            "J\t",
+            "K\t",
+            "L\t",
+            "M\t",
+            "N\t",
+            "O\t",
+            "P\t",
+            "Q\t",
+            "R\t",
+            "S\t",
+            "T\t",
+            "U\t",
+            "V\t",
+            "W\t",
+            "X\t",
+            "Y\t",
+            "Z"});
+            this.ListOfExcelColumns.Location = new System.Drawing.Point(10, 87);
+            this.ListOfExcelColumns.Name = "ListOfExcelColumns";
+            this.ListOfExcelColumns.Size = new System.Drawing.Size(92, 27);
+            this.ListOfExcelColumns.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(6, 65);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 19);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Column Letter";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(227, 226);
+            this.ClientSize = new System.Drawing.Size(227, 260);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.codeSpaceHypeLink);
+            this.Controls.Add(this.ListOfExcelColumns);
             this.Controls.Add(this.ProgressLbl);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.qrCodeImageFormatGroupBox);
@@ -143,7 +193,7 @@
             this.Controls.Add(this.SelectFileBtn);
             this.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(243, 265);
+            this.MaximumSize = new System.Drawing.Size(243, 299);
             this.Name = "Form1";
             this.Text = "Excel2QR";
             this.qrCodeImageFormatGroupBox.ResumeLayout(false);
@@ -163,6 +213,8 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label ProgressLbl;
         private System.Windows.Forms.LinkLabel codeSpaceHypeLink;
+        private System.Windows.Forms.ComboBox ListOfExcelColumns;
+        private System.Windows.Forms.Label label1;
     }
 }
 
