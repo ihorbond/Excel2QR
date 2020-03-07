@@ -2,10 +2,12 @@
 using QRCoder;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -96,7 +98,7 @@ namespace CSV2QR
 
         private void codeSpaceHypeLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://codespaceinc.co/");
+            OpenBrowser("https://codespaceinc.co/");
         }
 
         #endregion
@@ -220,6 +222,38 @@ namespace CSV2QR
         {
             img.Save(fullFileName, format);
             img.Dispose();
+        }
+
+        /// <summary>
+        /// Hack because of this: https://github.com/dotnet/corefx/issues/10361
+        /// </summary>
+        /// <param name="url"></param>
+        private void OpenBrowser(string url)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+            catch
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    url = url.Replace("&", "^&");
+                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    Process.Start("xdg-open", url);
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    Process.Start("open", url);
+                }
+                else
+                {
+                    MessageBox.Show($"Please visit us at {url}", "Developer");
+                }
+            }
         }
 
     }
