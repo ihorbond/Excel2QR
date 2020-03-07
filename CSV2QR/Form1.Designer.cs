@@ -30,7 +30,6 @@ namespace CSV2QR
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.SelectFileBtn = new System.Windows.Forms.Button();
             this.FileNameLbl = new System.Windows.Forms.Label();
             this.radioButtonJpeg = new System.Windows.Forms.RadioButton();
@@ -47,7 +46,7 @@ namespace CSV2QR
             // SelectFileBtn
             // 
             this.SelectFileBtn.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SelectFileBtn.Location = new System.Drawing.Point(10, 189);
+            this.SelectFileBtn.Location = new System.Drawing.Point(12, 142);
             this.SelectFileBtn.Name = "SelectFileBtn";
             this.SelectFileBtn.Size = new System.Drawing.Size(200, 26);
             this.SelectFileBtn.TabIndex = 0;
@@ -59,7 +58,7 @@ namespace CSV2QR
             // 
             this.FileNameLbl.AutoSize = true;
             this.FileNameLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FileNameLbl.Location = new System.Drawing.Point(7, 170);
+            this.FileNameLbl.Location = new System.Drawing.Point(8, 120);
             this.FileNameLbl.Name = "FileNameLbl";
             this.FileNameLbl.Size = new System.Drawing.Size(113, 19);
             this.FileNameLbl.TabIndex = 1;
@@ -106,7 +105,7 @@ namespace CSV2QR
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(10, 135);
+            this.progressBar1.Location = new System.Drawing.Point(12, 192);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(200, 23);
             this.progressBar1.Step = 1;
@@ -117,7 +116,7 @@ namespace CSV2QR
             this.ProgressLbl.AutoSize = true;
             this.ProgressLbl.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.ProgressLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProgressLbl.Location = new System.Drawing.Point(9, 114);
+            this.ProgressLbl.Location = new System.Drawing.Point(11, 171);
             this.ProgressLbl.Name = "ProgressLbl";
             this.ProgressLbl.Size = new System.Drawing.Size(65, 19);
             this.ProgressLbl.TabIndex = 6;
@@ -128,17 +127,20 @@ namespace CSV2QR
             this.codeSpaceHypeLink.AutoSize = true;
             this.codeSpaceHypeLink.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codeSpaceHypeLink.LinkColor = System.Drawing.Color.Silver;
-            this.codeSpaceHypeLink.Location = new System.Drawing.Point(9, 218);
+            this.codeSpaceHypeLink.Location = new System.Drawing.Point(27, 218);
             this.codeSpaceHypeLink.Name = "codeSpaceHypeLink";
             this.codeSpaceHypeLink.Size = new System.Drawing.Size(165, 14);
             this.codeSpaceHypeLink.TabIndex = 7;
             this.codeSpaceHypeLink.TabStop = true;
             this.codeSpaceHypeLink.Text = "Developed by Code Space Inc";
+            this.codeSpaceHypeLink.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.codeSpaceHypeLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.codeSpaceHypeLink_LinkClicked);
             // 
             // ListOfExcelColumns
             // 
-            this.ListOfExcelColumns.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ListOfExcelColumns.BackColor = System.Drawing.SystemColors.Window;
+            this.ListOfExcelColumns.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ListOfExcelColumns.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ListOfExcelColumns.FormattingEnabled = true;
             this.ListOfExcelColumns.Items.AddRange(new object[] {
             "A",
@@ -167,20 +169,20 @@ namespace CSV2QR
             "X\t",
             "Y\t",
             "Z"});
-            this.ListOfExcelColumns.Location = new System.Drawing.Point(10, 81);
+            this.ListOfExcelColumns.Location = new System.Drawing.Point(12, 82);
             this.ListOfExcelColumns.Name = "ListOfExcelColumns";
-            this.ListOfExcelColumns.Size = new System.Drawing.Size(92, 27);
+            this.ListOfExcelColumns.Size = new System.Drawing.Size(200, 27);
             this.ListOfExcelColumns.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 60);
+            this.label1.Location = new System.Drawing.Point(8, 60);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 19);
+            this.label1.Size = new System.Drawing.Size(184, 19);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Column Letter";
+            this.label1.Text = "Spreadsheet Column Letter";
             // 
             // Form1
             // 
@@ -196,7 +198,7 @@ namespace CSV2QR
             this.Controls.Add(this.FileNameLbl);
             this.Controls.Add(this.SelectFileBtn);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Icon = Excel2QR.Properties.Resources.icon;
+            this.Icon = global::Excel2QR.Properties.Resources.icon;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(243, 280);
             this.Name = "Form1";
