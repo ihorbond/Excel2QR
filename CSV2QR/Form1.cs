@@ -16,7 +16,8 @@ namespace CSV2QR
     {
         private const string _noFileSelectedMsg = "No File Selected";
         private OpenFileDialog _openFileDialog;
-        private readonly Dictionary<int, string> excelCols = new Dictionary<int, string>
+        private readonly bool _isDotNetCoreApp;
+        private readonly Dictionary<int, string> _excelCols = new Dictionary<int, string>
         {
             {0, "A" },
             {1, "B" },
@@ -51,7 +52,10 @@ namespace CSV2QR
             InitializeComponent();
             progressBar1.Minimum = progressBar1.Value = 0;
             ListOfExcelColumns.SelectedIndex = 0;
+            _isDotNetCoreApp = CheckTargetFramework();
         }
+
+        #region Event Handlers
 
         private async void SelectFileBtn_Click(object sender, EventArgs e)
         {
@@ -70,9 +74,9 @@ namespace CSV2QR
                 SelectFileBtn.Enabled = false;
                 ListOfExcelColumns.Enabled = false;
 
-                //indexes are zero based but columns are not so add 1
+                //columns in excel file are not 0 index based
                 int colNum = ListOfExcelColumns.SelectedIndex + 1;
-                await Task.Factory.StartNew(() => ParseFile(colNum));
+                await Task.Factory.StartNew(() => CreateQrCodes(colNum));
 
                 ProgressLbl.Text = "Progress";
                 SelectFileBtn.Enabled = true;
@@ -90,14 +94,34 @@ namespace CSV2QR
                 .ForEach(c => c.Checked = c == sender as RadioButton);
         }
 
-        private void ParseFile(int colNum)
+        private void codeSpaceHypeLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://codespaceinc.co/");
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Excel sheet and col index start at 0 for .Net Core
+        /// and at 1 for .Net Framework
+        /// </summary>
+        /// <returns>is .net core app</returns>
+        private bool CheckTargetFramework()
+        {
+            return AppDomain.CurrentDomain.SetupInformation.TargetFrameworkName.ToUpper().Contains("CORE");
+        }
+
+        /// <summary>
+        /// Parse file and create qr code images
+        /// </summary>
+        /// <param name="colNum"></param>
+        private void CreateQrCodes(int colNum)
         {
             try
             {
                 ExcelPackage package = new ExcelPackage(_openFileDialog.OpenFile());
+                ExcelWorksheet firstSheet = package.Workbook.Worksheets[_isDotNetCoreApp ? 0:1];
 
-                int sheetIndex = 1; //0 for .Net Core, 1 for .Net
-                ExcelWorksheet firstSheet = package.Workbook.Worksheets[sheetIndex];
                 if(firstSheet != null && firstSheet.Cells != null)
                 {
                     string excelFileDirPath = Path.GetDirectoryName(_openFileDialog.FileName);
@@ -110,11 +134,9 @@ namespace CSV2QR
 
                     int i = 1;
                     var data = new List<string>();
-
-                
                     while(firstSheet.Cells[i, colNum].Text.ToString().Trim() != "")
                     {
-                        data.Add(firstSheet.Cells[i, 1].Text);
+                        data.Add(firstSheet.Cells[i, colNum].Text);
                         i++;
                     }
 
@@ -198,11 +220,6 @@ namespace CSV2QR
         {
             img.Save(fullFileName, format);
             img.Dispose();
-        }
-
-        private void codeSpaceHypeLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://codespaceinc.co/");
         }
 
     }
