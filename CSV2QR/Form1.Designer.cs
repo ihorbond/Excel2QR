@@ -1,4 +1,6 @@
-﻿namespace CSV2QR
+﻿using System.Drawing;
+
+namespace CSV2QR
 {
     partial class Form1
     {
@@ -28,6 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.SelectFileBtn = new System.Windows.Forms.Button();
             this.FileNameLbl = new System.Windows.Forms.Label();
             this.radioButtonJpeg = new System.Windows.Forms.RadioButton();
@@ -44,9 +47,9 @@
             // SelectFileBtn
             // 
             this.SelectFileBtn.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SelectFileBtn.Location = new System.Drawing.Point(10, 204);
+            this.SelectFileBtn.Location = new System.Drawing.Point(10, 189);
             this.SelectFileBtn.Name = "SelectFileBtn";
-            this.SelectFileBtn.Size = new System.Drawing.Size(200, 25);
+            this.SelectFileBtn.Size = new System.Drawing.Size(200, 26);
             this.SelectFileBtn.TabIndex = 0;
             this.SelectFileBtn.Text = "Select File";
             this.SelectFileBtn.UseVisualStyleBackColor = true;
@@ -55,10 +58,10 @@
             // FileNameLbl
             // 
             this.FileNameLbl.AutoSize = true;
-            this.FileNameLbl.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FileNameLbl.Location = new System.Drawing.Point(7, 183);
+            this.FileNameLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FileNameLbl.Location = new System.Drawing.Point(7, 170);
             this.FileNameLbl.Name = "FileNameLbl";
-            this.FileNameLbl.Size = new System.Drawing.Size(109, 18);
+            this.FileNameLbl.Size = new System.Drawing.Size(113, 19);
             this.FileNameLbl.TabIndex = 1;
             this.FileNameLbl.Text = "No File Selected";
             // 
@@ -66,10 +69,10 @@
             // 
             this.radioButtonJpeg.AutoSize = true;
             this.radioButtonJpeg.Checked = true;
-            this.radioButtonJpeg.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonJpeg.Location = new System.Drawing.Point(12, 20);
+            this.radioButtonJpeg.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonJpeg.Location = new System.Drawing.Point(12, 19);
             this.radioButtonJpeg.Name = "radioButtonJpeg";
-            this.radioButtonJpeg.Size = new System.Drawing.Size(58, 23);
+            this.radioButtonJpeg.Size = new System.Drawing.Size(55, 22);
             this.radioButtonJpeg.TabIndex = 2;
             this.radioButtonJpeg.TabStop = true;
             this.radioButtonJpeg.Text = "JPEG";
@@ -79,9 +82,10 @@
             // radioButtonPng
             // 
             this.radioButtonPng.AutoSize = true;
-            this.radioButtonPng.Location = new System.Drawing.Point(76, 20);
+            this.radioButtonPng.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonPng.Location = new System.Drawing.Point(76, 19);
             this.radioButtonPng.Name = "radioButtonPng";
-            this.radioButtonPng.Size = new System.Drawing.Size(55, 23);
+            this.radioButtonPng.Size = new System.Drawing.Size(53, 22);
             this.radioButtonPng.TabIndex = 3;
             this.radioButtonPng.Text = "PNG";
             this.radioButtonPng.UseVisualStyleBackColor = true;
@@ -93,18 +97,18 @@
             this.qrCodeImageFormatGroupBox.Controls.Add(this.radioButtonJpeg);
             this.qrCodeImageFormatGroupBox.Controls.Add(this.radioButtonPng);
             this.qrCodeImageFormatGroupBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.qrCodeImageFormatGroupBox.Location = new System.Drawing.Point(12, 12);
+            this.qrCodeImageFormatGroupBox.Location = new System.Drawing.Point(12, 11);
             this.qrCodeImageFormatGroupBox.Name = "qrCodeImageFormatGroupBox";
-            this.qrCodeImageFormatGroupBox.Size = new System.Drawing.Size(200, 50);
+            this.qrCodeImageFormatGroupBox.Size = new System.Drawing.Size(200, 46);
             this.qrCodeImageFormatGroupBox.TabIndex = 4;
             this.qrCodeImageFormatGroupBox.TabStop = false;
             this.qrCodeImageFormatGroupBox.Text = "QR code image format";
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(10, 145);
+            this.progressBar1.Location = new System.Drawing.Point(10, 135);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(200, 25);
+            this.progressBar1.Size = new System.Drawing.Size(200, 23);
             this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 5;
             // 
@@ -112,10 +116,10 @@
             // 
             this.ProgressLbl.AutoSize = true;
             this.ProgressLbl.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.ProgressLbl.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProgressLbl.Location = new System.Drawing.Point(9, 123);
+            this.ProgressLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ProgressLbl.Location = new System.Drawing.Point(9, 114);
             this.ProgressLbl.Name = "ProgressLbl";
-            this.ProgressLbl.Size = new System.Drawing.Size(61, 18);
+            this.ProgressLbl.Size = new System.Drawing.Size(65, 19);
             this.ProgressLbl.TabIndex = 6;
             this.ProgressLbl.Text = "Progress";
             // 
@@ -124,7 +128,7 @@
             this.codeSpaceHypeLink.AutoSize = true;
             this.codeSpaceHypeLink.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codeSpaceHypeLink.LinkColor = System.Drawing.Color.Silver;
-            this.codeSpaceHypeLink.Location = new System.Drawing.Point(9, 235);
+            this.codeSpaceHypeLink.Location = new System.Drawing.Point(9, 218);
             this.codeSpaceHypeLink.Name = "codeSpaceHypeLink";
             this.codeSpaceHypeLink.Size = new System.Drawing.Size(165, 14);
             this.codeSpaceHypeLink.TabIndex = 7;
@@ -163,7 +167,7 @@
             "X\t",
             "Y\t",
             "Z"});
-            this.ListOfExcelColumns.Location = new System.Drawing.Point(10, 87);
+            this.ListOfExcelColumns.Location = new System.Drawing.Point(10, 81);
             this.ListOfExcelColumns.Name = "ListOfExcelColumns";
             this.ListOfExcelColumns.Size = new System.Drawing.Size(92, 27);
             this.ListOfExcelColumns.TabIndex = 5;
@@ -172,7 +176,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 65);
+            this.label1.Location = new System.Drawing.Point(6, 60);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 19);
             this.label1.TabIndex = 6;
@@ -180,9 +184,9 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(227, 260);
+            this.ClientSize = new System.Drawing.Size(227, 241);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.codeSpaceHypeLink);
             this.Controls.Add(this.ListOfExcelColumns);
@@ -191,9 +195,10 @@
             this.Controls.Add(this.qrCodeImageFormatGroupBox);
             this.Controls.Add(this.FileNameLbl);
             this.Controls.Add(this.SelectFileBtn);
-            this.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = Excel2QR.Properties.Resources.icon;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(243, 299);
+            this.MaximumSize = new System.Drawing.Size(243, 280);
             this.Name = "Form1";
             this.Text = "Excel2QR";
             this.qrCodeImageFormatGroupBox.ResumeLayout(false);
